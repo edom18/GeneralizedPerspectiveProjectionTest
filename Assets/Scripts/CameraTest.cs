@@ -5,9 +5,6 @@ using UnityEngine;
 public class CameraTest : MonoBehaviour
 {
     [SerializeField]
-    private Camera _camera = null;
-
-    [SerializeField]
     private Transform _quadTrans = null;
 
     [SerializeField]
@@ -19,22 +16,15 @@ public class CameraTest : MonoBehaviour
     [SerializeField]
     private Transform _pc = null;
 
-    [SerializeField]
     private Transform _pe = null;
-
-    private RenderTexture _texture = null;
+    private Camera _camera = null;
 
     private Material _material = null;
 
     private void Awake()
     {
-        _texture = new RenderTexture(512, 512, 0);
-        _texture.Create();
-
-        _camera.targetTexture = _texture;
-
-        _material = _quadTrans.GetComponent<MeshRenderer>().material;
-        _material.mainTexture = _texture;
+        _camera = GetComponent<Camera>();
+        _pe = _camera.transform;
     }
 
     private void Update()
@@ -76,19 +66,18 @@ public class CameraTest : MonoBehaviour
         // Load the perpendicular projection.
         Matrix4x4 P = Matrix4x4.Frustum(l, r, b, t, n, f);
 
-        Matrix4x4 M = new Matrix4x4();
-        M[0] = vr[0]; M[4] = vr[1]; M[ 8] = vr[2];
-        M[1] = vu[0]; M[5] = vu[1]; M[ 9] = vu[2];
-        M[2] = vn[0]; M[6] = vn[1]; M[10] = vn[2];
-        M[15] = 1f;
+        // Matrix4x4 M = new Matrix4x4();
+        // M[0] = vr[0]; M[4] = vr[1]; M[ 8] = vr[2];
+        // M[1] = vu[0]; M[5] = vu[1]; M[ 9] = vu[2];
+        // M[2] = vn[0]; M[6] = vn[1]; M[10] = vn[2];
+        // M[15] = 1f;
 
-        pe = _quadTrans.worldToLocalMatrix.MultiplyPoint(pe);
+        // Matrix4x4 T = Matrix4x4.Translate(-pe);
 
-        Matrix4x4 T = Matrix4x4.Translate(-pe);
+        // Matrix4x4 result = T * M * P;
 
-        Matrix4x4 result = T * M * P;
-
-        _camera.projectionMatrix = result;
+        _camera.projectionMatrix = P;
+        _camera.transform.rotation = Quaternion.LookRotation(-vn, vu);
     }
 
     private void ControlPlane()
