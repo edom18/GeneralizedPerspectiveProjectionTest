@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraTest : MonoBehaviour
+public class GeneralizedPerspectiveProjection : MonoBehaviour
 {
     [SerializeField]
     private Transform _quadTrans = null;
@@ -15,6 +15,12 @@ public class CameraTest : MonoBehaviour
 
     [SerializeField]
     private Transform _pc = null;
+
+    [SerializeField]
+    private Collider[] _colliders = null;
+
+    [SerializeField]
+    private float _scale = 1f;
 
     private Transform _pe = null;
     private Camera _camera = null;
@@ -31,6 +37,7 @@ public class CameraTest : MonoBehaviour
     {
         UpdateFrustrum();
         ControlPlane();
+        CheckTargets();
     }
 
     private void UpdateFrustrum()
@@ -57,7 +64,7 @@ public class CameraTest : MonoBehaviour
         float d = -Vector3.Dot(va, vn);
 
         // Find the extent of the perpendicular projection.
-        float nd = n / d;
+        float nd = n / d * _scale;
         float l = Vector3.Dot(vr, va) * nd;
         float r = Vector3.Dot(vr, vb) * nd;
         float b = Vector3.Dot(vu, va) * nd;
@@ -65,16 +72,6 @@ public class CameraTest : MonoBehaviour
 
         // Load the perpendicular projection.
         Matrix4x4 P = Matrix4x4.Frustum(l, r, b, t, n, f);
-
-        // Matrix4x4 M = new Matrix4x4();
-        // M[0] = vr[0]; M[4] = vr[1]; M[ 8] = vr[2];
-        // M[1] = vu[0]; M[5] = vu[1]; M[ 9] = vu[2];
-        // M[2] = vn[0]; M[6] = vn[1]; M[10] = vn[2];
-        // M[15] = 1f;
-
-        // Matrix4x4 T = Matrix4x4.Translate(-pe);
-
-        // Matrix4x4 result = T * M * P;
 
         _camera.projectionMatrix = P;
         _camera.transform.rotation = Quaternion.LookRotation(-vn, vu);
@@ -100,6 +97,21 @@ public class CameraTest : MonoBehaviour
         if (Input.GetKey(KeyCode.DownArrow))
         {
             _quadTrans.transform.position -= _quadTrans.transform.up * 0.1f;
+        }
+    }
+
+    private void CheckTargets()
+    {
+        Plane[] planes = GeometryUtility.CalculateFrustumPlanes(_camera);
+
+        foreach (var col in _colliders)
+        {
+            col.GetComponent<Renderer>().material.color = Color.white;
+
+            if (GeometryUtility.TestPlanesAABB(planes, col.bounds))
+            {
+                col.GetComponent<Renderer>().material.color = Color.blue;
+            }
         }
     }
 }
