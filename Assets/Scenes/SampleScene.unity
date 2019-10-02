@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 382870395}
   - component: {fileID: 382870394}
   m_Layer: 0
-  m_Name: RightHand
+  m_Name: Sphere2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -151,7 +151,7 @@ Transform:
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 727692794}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &382870394
 SphereCollider:
@@ -303,7 +303,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 727692794}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &661767538
 GameObject:
@@ -347,7 +347,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 3
+  far clip plane: 5
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -382,6 +382,14 @@ MonoBehaviour:
   _pa: {fileID: 1110719468}
   _pb: {fileID: 1663671737}
   _pc: {fileID: 1555988451}
+  _colliders:
+  - {fileID: 2084039868}
+  - {fileID: 382870394}
+  - {fileID: 520350165}
+  - {fileID: 717048822}
+  - {fileID: 788879455}
+  - {fileID: 843263205}
+  _scale: 1
 --- !u!4 &661767541
 Transform:
   m_ObjectHideFlags: 0
@@ -500,7 +508,7 @@ GameObject:
   - component: {fileID: 717048823}
   - component: {fileID: 717048822}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: Capsule1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -607,9 +615,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.97, z: 1.187}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 520350168}
   - {fileID: 2084039867}
   - {fileID: 382870393}
-  - {fileID: 520350168}
   - {fileID: 717048825}
   - {fileID: 788879458}
   - {fileID: 843263208}
@@ -629,7 +637,7 @@ GameObject:
   - component: {fileID: 788879456}
   - component: {fileID: 788879455}
   m_Layer: 0
-  m_Name: Capsule (1)
+  m_Name: Capsule2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -722,7 +730,7 @@ GameObject:
   - component: {fileID: 843263206}
   - component: {fileID: 843263205}
   m_Layer: 0
-  m_Name: Capsule (2)
+  m_Name: Capsule3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -988,7 +996,7 @@ GameObject:
   - component: {fileID: 2061685019}
   - component: {fileID: 2061685018}
   m_Layer: 8
-  m_Name: Quad
+  m_Name: Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1070,7 +1078,7 @@ GameObject:
   - component: {fileID: 2084039869}
   - component: {fileID: 2084039868}
   m_Layer: 0
-  m_Name: LeftHand
+  m_Name: Sphere1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1088,7 +1096,7 @@ Transform:
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 727692794}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &2084039868
 SphereCollider:
